@@ -1,0 +1,20 @@
+[Thu Feb 23 14:56:45 2023] ThreadID[32100]	Start Program.
+[Thu Feb 23 14:56:45 2023] ThreadID[32100]	[EVENT]	LOADING GAME LEVEL [OBJECT ORIENTED]
+[Thu Feb 23 14:56:45 2023] ThreadID[32100]	[MESSAGE]	Begin Reading Game Level Text File.
+[Thu Feb 23 14:56:45 2023] ThreadID[32100]	[ERROR]	Game level not found: ../../CyberpunkGameLevel.txt
+[Thu Feb 23 14:56:45 2023] ThreadID[32100]	End Program.
+[Thu Feb 23 15:05:52 2023] ThreadID[29296]	Start Program.
+[Thu Feb 23 15:05:52 2023] ThreadID[29296]	[EVENT]	LOADING GAME LEVEL [OBJECT ORIENTED]
+[Thu Feb 23 15:05:52 2023] ThreadID[29296]	[MESSAGE]	Begin Reading Game Level Text File.
+[Thu Feb 23 15:05:52 2023] ThreadID[29296]	[ERROR]	Game level not found: ../../CyberpunkGameLevel.txt
+[Thu Feb 23 15:05:52 2023] ThreadID[29296]	End Program.
+[Thu Feb 23 15:09:54 2023] ThreadID[11800]	Start Program.
+[Thu Feb 23 15:09:54 2023] ThreadID[11800]	[EVENT]	LOADING GAME LEVEL [OBJECT ORIENTED]
+[Thu Feb 23 15:09:54 2023] ThreadID[11800]	[MESSAGE]	Begin Reading Game Level Text File.
+[Thu Feb 23 15:09:54 2023] ThreadID[11800]	[ERROR]	Game level not found: ../../CyberpunkGameLevel.txt
+[Thu Feb 23 15:09:54 2023] ThreadID[11800]	End Program.
+[Thu Feb 23 15:14:15 2023] ThreadID[26440]	Start Program.
+[Thu Feb 23 15:14:15 2023] ThreadID[26440]	[EVENT]	LOADING GAME LEVEL [OBJECT ORIENTED]
+[Thu Feb 23 15:14:15 2023] ThreadID[26440]	[MESSAGE]	Begin Reading Game Level Text File.
+[Thu Feb 23 15:14:15 2023] ThreadID[26440]	[ERROR]	Game level not found: ../../CyberpunkGameLevel.txt
+[Thu Feb 23 15:14:15 2023] ThreadID[26440]	End Program.

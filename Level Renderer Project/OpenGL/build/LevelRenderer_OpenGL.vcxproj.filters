@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\load_object_oriented.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{76D76A17-C821-3F0D-9279-2CC9E58563F9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{6577797B-28A8-3C3C-99FB-816134CCE92D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
