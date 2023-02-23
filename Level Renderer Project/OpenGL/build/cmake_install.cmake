@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/mikyt/Desktop/Level Renderer Project/OpenGL
+# Install script for directory: C:/Users/mikyt/Documents/FullSail/13.2. 3-DContentCreation/LevelRendererMiguel/Level Renderer Project/OpenGL
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/Assignment_2_OpenGL")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/LevelRenderer_OpenGL")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/mikyt/Desktop/Level Renderer Project/OpenGL/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/mikyt/Documents/FullSail/13.2. 3-DContentCreation/LevelRendererMiguel/Level Renderer Project/OpenGL/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,24 +1,25 @@
-﻿  main.cpp
+﻿  Building Custom Rule C:/Users/mikyt/Documents/FullSail/13.2. 3-DContentCreation/LevelRendererMiguel/Level Renderer Project/OpenGL/CMakeLists.txt
+  main.cpp
   **Dependency Test Output**
   **End Dependency Test Output**
-C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\../OpenGL/h2bParser.h(81,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\../OpenGL/h2bParser.h(96,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(233,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(235,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(358,1): warning C4312: 'type cast': conversion from 'int' to 'void *' of greater size
-C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(558,1): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(502,11): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(546,11): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(578,11): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\../Gateware/Gateware.h(17113,4): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\../OpenGL/h2bParser.h(81,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\../OpenGL/h2bParser.h(96,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(233,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(235,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(358,1): warning C4312: 'type cast': conversion from 'int' to 'void *' of greater size
+C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(558,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(502,11): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(546,11): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(578,11): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\../Gateware/Gateware.h(17113,4): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
           with
           [
               _Ty=int
           ]
-C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(422,1): message : see reference to function template instantiation 'GW::GReturn GW::MATH::GMatrix::ProjectionOpenGLLHF<double,float&,float,int,GW::MATH::GMATRIXF&>(double &&,float &,float &&,int &&,GW::MATH::GMATRIXF &)' being compiled
-C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\../Gateware/Gateware.h(17113,4): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\../../Level Renderer Project/OpenGL/load_object_oriented.h(422,1): message : see reference to function template instantiation 'GW::GReturn GW::MATH::GMatrix::ProjectionOpenGLLHF<double,float&,float,int,GW::MATH::GMATRIXF&>(double &&,float &,float &&,int &&,GW::MATH::GMATRIXF &)' being compiled
+C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\../Gateware/Gateware.h(17113,4): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
           with
           [
               _Ty=double
           ]
-  LevelRenderer_OpenGL.vcxproj -> C:\Users\mikyt\Desktop\Level Renderer Project\OpenGL\build\Debug\LevelRenderer_OpenGL.exe
+  LevelRenderer_OpenGL.vcxproj -> C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\build\Debug\LevelRenderer_OpenGL.exe

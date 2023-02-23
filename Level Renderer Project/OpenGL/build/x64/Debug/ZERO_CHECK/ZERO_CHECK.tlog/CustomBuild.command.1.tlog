@@ -1,6 +1,6 @@
-^C:\USERS\MIKYT\DESKTOP\LEVEL RENDERER PROJECT\OPENGL\BUILD\CMAKEFILES\5B6611A44CB9BD4EBBB50C484DA732E0\GENERATE.STAMP.RULE
+^C:\USERS\MIKYT\DOCUMENTS\FULLSAIL\13.2. 3-DCONTENTCREATION\LEVELRENDERERMIGUEL\LEVEL RENDERER PROJECT\OPENGL\BUILD\CMAKEFILES\DE61EE9541F20DDAA059287C0CDB75BC\GENERATE.STAMP.RULE
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/mikyt/Desktop/Level Renderer Project/OpenGL" "-BC:/Users/mikyt/Desktop/Level Renderer Project/OpenGL/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/mikyt/Desktop/Level Renderer Project/OpenGL/build/LevelRenderer_OpenGL.sln"
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/mikyt/Documents/FullSail/13.2. 3-DContentCreation/LevelRendererMiguel/Level Renderer Project/OpenGL" "-BC:/Users/mikyt/Documents/FullSail/13.2. 3-DContentCreation/LevelRendererMiguel/Level Renderer Project/OpenGL/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/mikyt/Documents/FullSail/13.2. 3-DContentCreation/LevelRendererMiguel/Level Renderer Project/OpenGL/build/LevelRenderer_OpenGL.sln"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

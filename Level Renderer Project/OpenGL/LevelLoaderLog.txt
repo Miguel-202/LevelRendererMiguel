@@ -6060,3 +6060,130 @@
 [Thu Feb 23 15:37:35 2023] ThreadID[8212]	[MESSAGE]	Game Level File Reading Complete.
 [Thu Feb 23 15:37:35 2023] ThreadID[8212]	[EVENT]	GAME LEVEL WAS LOADED TO CPU [OBJECT ORIENTED]
 [Thu Feb 23 15:37:35 2023] ThreadID[8212]	End Program.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	Start Program.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[EVENT]	LOADING GAME LEVEL [OBJECT ORIENTED]
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Reading Game Level Text File.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Light
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X 0.367200 Y 0.572300 Z -1.265700
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete. Light created
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Camera
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X 7.358900 Y 4.958300 Z -6.925800
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: TowerHouse_FirstAge
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -1.112500 Y 0.069500 Z -1.277700
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/TowerHouse_FirstAge.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Platform_4x4_Empty
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X 0.000000 Y 0.000000 Z 0.000000
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Platform_4x4_Empty.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Mountain_Group_1
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X 0.000000 Y 0.000000 Z 1.770600
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Mountain_Group_1.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Barrel
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -0.479100 Y 0.078400 Z -0.903500
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Barrel.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Resource_Tree1
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X 0.399800 Y 0.000000 Z 0.230300
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Resource_Tree1.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Resource_Tree1
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -0.956700 Y 0.066000 Z 0.257300
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Resource_Tree1.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Resource_Tree1
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X 1.200600 Y 0.031100 Z -1.275800
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Resource_Tree1.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Barrel
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -0.495200 Y 0.073700 Z -1.015600
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Barrel.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Computer_Large
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -0.112100 Y 0.000000 Z -1.484700
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Computer_Large.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Resource_Gold_2
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X 0.862000 Y 0.000000 Z 0.869900
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Resource_Gold_2.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Rail_Corner
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X 1.140800 Y 0.062400 Z 0.650800
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Rail_Corner.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Farm_Dirt_Level1
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X 0.142900 Y 0.070000 Z -0.484300
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Farm_Dirt_Level1.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Logs
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -1.159000 Y 0.158000 Z -0.210600
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Logs.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Rail_Corner
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -0.139800 Y 0.057300 Z 0.575300
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Rail_Corner.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: AC
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -1.141300 Y 0.511100 Z -0.724200
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/AC.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Cable_Thick
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X 0.530200 Y 0.425200 Z 1.515100
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Cable_Thick.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Cable_Thick
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -1.150200 Y 0.249900 Z 1.097100
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Cable_Thick.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: AC
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -0.678100 Y 0.379100 Z 1.231000
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/AC.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Resource_Gold_2
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -1.451100 Y 0.068600 Z 0.629900
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Resource_Gold_2.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Cable_Thick
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -0.597600 Y 1.351400 Z -1.149800
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Cable_Thick.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Farm_Dirt_Level1
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X 1.146100 Y 0.056500 Z -0.495000
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	H2B Imported: ../../Models/Farm_Dirt_Level1.h2b
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Light.001
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X -0.609300 Y 1.123400 Z -1.112100
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete. Light created
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Model Detected: Camera.001
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[INFO]	Location: X 2.591800 Y 2.545900 Z -0.606800
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Begin Importing .H2B File Data.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Importing of .H2B File Data Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[MESSAGE]	Game Level File Reading Complete.
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	[EVENT]	GAME LEVEL WAS LOADED TO CPU [OBJECT ORIENTED]
+[Thu Feb 23 16:03:46 2023] ThreadID[5812]	End Program.
