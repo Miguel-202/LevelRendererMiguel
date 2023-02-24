@@ -213,6 +213,53 @@ void UpdateCamera(GW::MATH::GMATRIXF view)
 	if (KeyK == 1)
 		sunPositionG = view.row4;
 }
+float cameraRadius = 0.2;
+struct BoundingBox {
+	H2B::VECTOR minPoint, maxPoint;
+};
+float Clamp(float value, float min, float max) {
+	if (value < min) {
+		return min;
+	}
+	else if (value > max) {
+		return max;
+	}
+	else {
+		return value;
+	}
+}
+float Distance(H2B::VECTOR a, H2B::VECTOR b) {
+	float dx = b.x - a.x;
+	float dy = b.y - a.y;
+	float dz = b.z - a.z;
+	return sqrt(dx * dx + dy * dy + dz * dz);
+}
+float Length(H2B::VECTOR v) {
+	return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+}
+H2B::VECTOR SubtractVectors(H2B::VECTOR a, H2B::VECTOR b) {
+	H2B::VECTOR result;
+	result.x = a.x - b.x;
+	result.y = a.y - b.y;
+	result.z = a.z - b.z;
+	return result;
+}
+H2B::VECTOR Normalize(H2B::VECTOR v) {
+	float length = Length(v);
+	H2B::VECTOR result;
+	result.x = v.x / length;
+	result.y = v.y / length;
+	result.z = v.z / length;
+	return result;
+}
+H2B::VECTOR MultiplyVectorByScalar(H2B::VECTOR v, float s) {
+	return { v.x * s, v.y * s, v.z * s };
+}
+H2B::VECTOR AddVectors(H2B::VECTOR v1, H2B::VECTOR v2) {
+	return { v1.x + v2.x, v1.y + v2.y, v1.z + v2.z };
+}
+
+
 
 
 class Model {
@@ -220,6 +267,7 @@ class Model {
 	H2B::Parser cpuModel; // reads the .h2b format
 	// Shader variables needed by this model. 
 	GW::MATH::GMATRIXF world;// TODO: Add matrix/light/etc vars..
+	BoundingBox* collisions;
 	// TODO: API Rendering vars here (unique to this model)
 	// Vertex Buffer
 	// Index Buffer
@@ -240,11 +288,31 @@ public:
 		return cpuModel.Parse(h2bPath);
 	}
 	bool UploadModelData2GPU(/*specific API device for loading*/) {
+		//LIGHTS
 		for (size_t i = 0; i < lightCount; i++)
 		{
 			shaderInformation.lightCol[i] = lightCol[i];
 			shaderInformation.lightsPos[i] = lightsPos[i];
 		}
+		//COLLISIONS
+		collisions = new BoundingBox[cpuModel.materialCount];
+		H2B::VECTOR minPoint = cpuModel.vertices[0].pos;
+		H2B::VECTOR maxPoint = cpuModel.vertices[0].pos;
+		for (size_t i = 0; i < cpuModel.meshCount; i++)
+		{
+			for (int j = 0; j < cpuModel.batches[i].indexCount; j++) {
+				H2B::VERTEX vertex = cpuModel.vertices[cpuModel.indices[j]];
+				if (vertex.pos.x < minPoint.x) minPoint.x = vertex.pos.x;
+				if (vertex.pos.y < minPoint.y) minPoint.y = vertex.pos.y;
+				if (vertex.pos.z < minPoint.z) minPoint.z = vertex.pos.z;
+				if (vertex.pos.x > maxPoint.x) maxPoint.x = vertex.pos.x;
+				if (vertex.pos.y > maxPoint.y) maxPoint.y = vertex.pos.y;
+				if (vertex.pos.z > maxPoint.z) maxPoint.z = vertex.pos.z;
+			}
+
+			collisions[i] = {minPoint, maxPoint};
+		}
+
 		shaderInformation.view_perspective = viewPerspective;
 		glGenVertexArrays(1, &vertexArray);
 		glBindVertexArray(vertexArray);
@@ -277,6 +345,7 @@ public:
 		}
 		else if (GetAsyncKeyState(0x33) & 0x8000)//key 3
 		{
+
 		}
 		GW::MATH::GMATRIXF camPos;
 		mProxy.InverseF(view, camPos);
@@ -299,10 +368,15 @@ public:
 
 		// TODO: Use chosen API to setup the pipeline for this model and draw it
 
+		
+
+		// Check if the camera is colliding with the object's bounding box
+		//Using 0.1 because is the camera near plane
 
 		//CameraMovement
 		if (canMove)
 		{
+
 			UpdateCamera(view);
 			mProxy.TranslateLocalF(view, movement, view);
 			mProxy.TranslateGlobalF(view, movementSide, view);
@@ -338,8 +412,34 @@ public:
 		glBufferData(GL_ARRAY_BUFFER, sizeof(H2B::VERTEX) * cpuModel.vertices.size(), cpuModel.vertices.data(), GL_STATIC_DRAW);//LINE
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * cpuModel.indexCount, cpuModel.indices.data(), GL_STATIC_DRAW);
 
+		H2B::VECTOR prevCameraPos = { camPos.row4.x, camPos.row4.y, camPos.row4.z };
 		for (size_t i = 0; i < cpuModel.meshCount; i++)
 		{
+			if (camPos.row4.x + cameraRadius >= collisions[i].minPoint.x && camPos.row4.x - cameraRadius <= collisions[i].maxPoint.x &&
+				camPos.row4.y + cameraRadius >= collisions[i].minPoint.y && camPos.row4.y - cameraRadius <= collisions[i].maxPoint.y &&
+				camPos.row4.z + cameraRadius >= collisions[i].minPoint.z && camPos.row4.z - cameraRadius <= collisions[i].maxPoint.z) {
+				// Camera is inside the object, move it to the nearest point on the surface
+				H2B::VECTOR closestPoint = {
+				Clamp(camPos.row4.x, collisions[i].minPoint.x, collisions[i].maxPoint.x),
+				Clamp(camPos.row4.y, collisions[i].minPoint.y, collisions[i].maxPoint.y),
+				Clamp(camPos.row4.z, collisions[i].minPoint.z, collisions[i].maxPoint.z)
+				};
+				float distance = Distance({ camPos.row4.x, camPos.row4.y, camPos.row4.z }, closestPoint);
+				if (distance < cameraRadius) {
+					H2B::VECTOR displacement = SubtractVectors({ camPos.row4.x, camPos.row4.y, camPos.row4.z }, closestPoint);
+					if (displacement.x != 0 || displacement.y != 0 || displacement.z != 0)
+					{
+						H2B::VECTOR normal = Normalize(displacement);
+						float distance = Distance({ camPos.row4.x, camPos.row4.y, camPos.row4.z }, closestPoint);
+						float cameraRadius = 2.0f;
+					
+						H2B::VECTOR newPos = AddVectors({ camPos.row4.x, camPos.row4.y, camPos.row4.z }, MultiplyVectorByScalar(normal, -0.4)); //0.4 is the backup distance the camera will move back
+						view.row4.x = newPos.x;
+						view.row4.y = newPos.y;
+						view.row4.z = newPos.z;
+					}
+				}
+			}
 			shaderInformation.material = cpuModel.materials[cpuModel.meshes[i].materialIndex].attrib;
 			shaderInformation.worldMatrix = world;
 			p = glMapBuffer(GL_UNIFORM_BUFFER, GL_WRITE_ONLY);
@@ -439,7 +539,7 @@ public:
 			return false;
 		win.GetClientHeight(winHeight); win.GetClientWidth(winWidth);
 		float aspectRatio;
-		aspectRatio = (float)winWidth / (float)winHeight;
+		aspectRatio = ((float)winWidth/2) / (float)winHeight;
 
 		mProxy.ProjectionOpenGLLHF(G_DEGREE_TO_RADIAN(65), aspectRatio, 0.1f, 100, perspective);
 		mProxy.MultiplyMatrixF(view[0], perspective, viewPerspective);
