@@ -213,7 +213,7 @@ void UpdateCamera(GW::MATH::GMATRIXF view)
 	if (KeyK == 1)
 		sunPositionG = view.row4;
 }
-float cameraRadius = 0.2;
+float cameraRadius = 0.05;
 struct BoundingBox {
 	H2B::VECTOR minPoint, maxPoint;
 };
@@ -433,10 +433,10 @@ public:
 						float distance = Distance({ camPos.row4.x, camPos.row4.y, camPos.row4.z }, closestPoint);
 						float cameraRadius = 2.0f;
 					
-						H2B::VECTOR newPos = AddVectors({ camPos.row4.x, camPos.row4.y, camPos.row4.z }, MultiplyVectorByScalar(normal, -0.4)); //0.4 is the backup distance the camera will move back
-						view.row4.x = newPos.x;
-						view.row4.y = newPos.y;
-						view.row4.z = newPos.z;
+						H2B::VECTOR newPos = MultiplyVectorByScalar(normal, -0.1); //0.4 is the backup distance the camera will move back
+						//mProxy.InverseF(view, view);
+						mProxy.TranslateGlobalF(view, GW::MATH::GVECTORF{ newPos.x, newPos.y, newPos.z }, view);
+						//mProxy.InverseF(view, view);
 					}
 				}
 			}
