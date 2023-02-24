@@ -5,7 +5,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-GLuint texture_object = 0;
+GLuint texture_object[6] = { 0 };
 
 
 GW::SYSTEM::GWindow win;
@@ -52,7 +52,7 @@ struct UBO_DATA
 	GW::MATH::GVECTORF lightsPos[2];
 	GW::MATH::GVECTORF lightCol[2];
 	GW::MATH::GMATRIXF view_perspective;
-	GW::MATH::GMATRIXF worldMatrix; //Position for the objects in the world
+	GW::MATH::GMATRIXF worldMatrix = GW::MATH::GIdentityMatrixF; //Position for the objects in the world
 	H2B::ATTRIBUTES material; //LINE TODO
 	GW::MATH::GVECTORF cameraPos;
 };
@@ -68,14 +68,17 @@ GLuint vertexShader = 0;
 GLuint fragmentShader = 0;
 GLuint shaderExecutable = 0;
 
+unsigned int textureID;
+unsigned int skybox;
+
 GW::MATH::GMatrix mProxy;
-GW::MATH::GMATRIXF view;
+GW::MATH::GMATRIXF view[2];
 GW::MATH::GMATRIXF perspective;
 GW::MATH::GMATRIXF viewPerspective;
 GW::MATH::GMATRIXF worldPositions[2];
 
 GW::MATH::GVECTORF sunColorG = { 25.0f / 100.0f, 25.0f / 100.0f, 35.0f / 100.0f };
-GW::MATH::GVECTORF sunPositionG = { 1,1,1 };
+GW::MATH::GVECTORF sunPositionG = { -1,-1,1 };
 
 //Movement Proxy
 GW::INPUT::GInput inputProxy;
@@ -100,7 +103,7 @@ GW::MATH::GVECTORF lightsPos[lightCountLimit];
 GW::MATH::GVECTORF lightCol[lightCountLimit];
 
 //SKYBOX CUBE
-const float cubeSize = 10.0f;
+const float cubeSize = 50.0f;
 // Define the 8 vertex positions of the cube
 H2B::VECTOR positions[8] = {
 	{-cubeSize, -cubeSize,  cubeSize},
@@ -134,45 +137,7 @@ H2B::VERTEX cubeVerts[8] = {
 	{{positions[6]}, {1.0f, 1.0f, 1.0f}, {0.0f, 0.0f, -1.0f}}, // back top right
 	{{positions[7]}, {0.0f, 1.0f, 1.0f}, {0.0f, 0.0f, -1.0f}}  // back top left
 };
-void LoadTexture(const char* file_path)
-{
-	GLint width, height, channels;
-	unsigned char* data = stbi_load(file_path, &width, &height, &channels, 0);
-
-	if (!data)
-	{
-		std::cout << "ERROR: Texture \"" << file_path << "\" Not Found!" << std::endl;
-		return;
-	}
-
-	glGenTextures(1, &texture_object);
-	glBindTexture(GL_TEXTURE_2D, texture_object);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	GLint format = 0;
-	switch (channels)
-	{
-	case 3:
-		format = GL_RGB;
-		break;
-	case 4:
-		format = GL_RGBA;
-		break;
-	default:
-		break;
-	};
-
-	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	stbi_image_free(data);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-void UpdateCamera()
+void UpdateCamera(GW::MATH::GMATRIXF view)
 {
 	static auto previousTime = std::chrono::high_resolution_clock::now();
 	auto currentTime = std::chrono::high_resolution_clock::now();
@@ -303,15 +268,19 @@ public:
 		// TODO: Use chosen API to upload this model's graphics data to GPU
 		return true;
 	}
-	bool DrawModel(/*specific API command list or context*/) {
-
-		shaderInformation.cameraPos = view.row4;
-		// TODO: Use chosen API to setup the pipeline for this model and draw it
-		glBufferData(GL_ARRAY_BUFFER, sizeof(H2B::VERTEX) * cpuModel.vertices.size(), cpuModel.vertices.data(), GL_STATIC_DRAW);//LINE
-		//glBufferData(GL_ARRAY_BUFFER, sizeof(H2B::VERTEX) * FSLogo_vertexcount, FSLogo_indices, GL_STATIC_DRAW);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * cpuModel.indexCount, cpuModel.indices.data(), GL_STATIC_DRAW);
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * FSLogo_indexcount, FSLogo_indices, GL_STATIC_DRAW);
-
+	bool DrawModel(GW::MATH::GMATRIXF& view, bool canMove/*specific API command list or context*/) {
+		if (GetAsyncKeyState(0x31) & 0x8000)//key 1
+		{
+		}
+		else if (GetAsyncKeyState(0x32) & 0x8000)//key 2
+		{
+		}
+		else if (GetAsyncKeyState(0x33) & 0x8000)//key 3
+		{
+		}
+		GW::MATH::GMATRIXF camPos;
+		mProxy.InverseF(view, camPos);
+		shaderInformation.cameraPos = camPos.row4;
 
 		//UBO Binding
 		glGenBuffers(1, &UBO);
@@ -321,35 +290,57 @@ public:
 		uniformBlockIndex = glGetUniformBlockIndex(shaderExecutable, "UBO_DATA");
 		glBindBufferBase(GL_UNIFORM_BUFFER, uniformBlockIndex, UBO);
 
-		//glBindBuffer(GL_UNIFORM_BUFFER, 0);
 		shaderInformation.sunColor = sunColorG;
 		shaderInformation.sunDirection = sunPositionG;
 
 		glUseProgram(shaderExecutable);
 		glBindVertexArray(vertexArray);
-
 		glUniformBlockBinding(shaderExecutable, uniformBlockIndex, 0);
 
+		// TODO: Use chosen API to setup the pipeline for this model and draw it
+
+
 		//CameraMovement
-		UpdateCamera();
-		mProxy.TranslateLocalF(view, movement, view);
-		mProxy.TranslateGlobalF(view, movementSide, view);
-		mProxy.InverseF(view, view);
-		mProxy.RotateXLocalF(view, rotationXY[1], view);
-		mProxy.RotateYGlobalF(view, rotationXY[0], view);
-		mProxy.InverseF(view, view);
-		mProxy.MultiplyMatrixF(view, perspective, shaderInformation.view_perspective);
-		movement = { 0,0,0 }; movementSide = { 0,0,0 };
-		rotationXY[0] = 0; rotationXY[1] = 0;
+		if (canMove)
+		{
+			UpdateCamera(view);
+			mProxy.TranslateLocalF(view, movement, view);
+			mProxy.TranslateGlobalF(view, movementSide, view);
+			mProxy.InverseF(view, view);
+			mProxy.RotateXLocalF(view, rotationXY[1], view);
+			mProxy.RotateYGlobalF(view, rotationXY[0], view);
+			mProxy.InverseF(view, view);
+			mProxy.MultiplyMatrixF(view, perspective, shaderInformation.view_perspective);
+			movement = { 0,0,0 }; movementSide = { 0,0,0 };
+			rotationXY[0] = 0; rotationXY[1] = 0;
+		}
+
+
 		GLvoid* p;
+
+
+		//SKYBOX
+
+		shaderInformation.material.illum = 1000;
+		glBufferData(GL_ARRAY_BUFFER, sizeof(H2B::VERTEX) * 8, cubeVerts, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * 36, cubeIndexes, GL_STATIC_DRAW);
+		mProxy.IdentityF(shaderInformation.worldMatrix);
+		shaderInformation.worldMatrix.row4 = camPos.row4;
+		glBindTexture(GL_TEXTURE_CUBE_MAP, skybox);
+		p = glMapBuffer(GL_UNIFORM_BUFFER, GL_WRITE_ONLY);
+		memcpy(p, &shaderInformation, sizeof(shaderInformation));
+		glUnmapBuffer(GL_UNIFORM_BUFFER);
+
+		glDepthMask(GL_FALSE);
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (void*)0);
+		glDepthMask(GL_TRUE);
+
+		glBufferData(GL_ARRAY_BUFFER, sizeof(H2B::VERTEX) * cpuModel.vertices.size(), cpuModel.vertices.data(), GL_STATIC_DRAW);//LINE
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * cpuModel.indexCount, cpuModel.indices.data(), GL_STATIC_DRAW);
+
 		for (size_t i = 0; i < cpuModel.meshCount; i++)
 		{
 			shaderInformation.material = cpuModel.materials[cpuModel.meshes[i].materialIndex].attrib;
-			/*shaderInformation.material = { {cpuModel.materials[i].attrib.Kd.x, cpuModel.materials[i].attrib.Kd.y, cpuModel.materials[i].attrib.Kd.z}, cpuModel.materials[i].attrib.d,
-										   {cpuModel.materials[i].attrib.Ks.x, cpuModel.materials[i].attrib.Ks.y, cpuModel.materials[i].attrib.Ks.z}, cpuModel.materials[i].attrib.Ns,
-										   {cpuModel.materials[i].attrib.Ka.x, cpuModel.materials[i].attrib.Ka.y, cpuModel.materials[i].attrib.Ka.z}, cpuModel.materials[i].attrib.sharpness,
-										   {cpuModel.materials[i].attrib.Tf.x, cpuModel.materials[i].attrib.Tf.y, cpuModel.materials[i].attrib.Tf.z}, cpuModel.materials[i].attrib.Ni,
-										   {cpuModel.materials[i].attrib.Ke.x, cpuModel.materials[i].attrib.Ke.y, cpuModel.materials[i].attrib.Ke.z}, cpuModel.materials[i].attrib.illum};*/
 			shaderInformation.worldMatrix = world;
 			p = glMapBuffer(GL_UNIFORM_BUFFER, GL_WRITE_ONLY);
 			memcpy(p, &shaderInformation, sizeof(shaderInformation));
@@ -357,18 +348,9 @@ public:
 			int offset = cpuModel.batches[i].indexOffset * sizeof(float);
 			glDrawElements(GL_TRIANGLES, cpuModel.batches[i].indexCount, GL_UNSIGNED_INT, (void*)offset);
 		}
-		shaderInformation.material.illum = 1000;
-		glBufferData(GL_ARRAY_BUFFER, sizeof(H2B::VERTEX) * 36, cubeVerts, GL_STATIC_DRAW);//LINE
-		//glBufferData(GL_ARRAY_BUFFER, sizeof(H2B::VERTEX) * FSLogo_vertexcount, FSLogo_indices, GL_STATIC_DRAW);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * 36, cubeIndexes, GL_STATIC_DRAW);
-		mProxy.IdentityF(shaderInformation.worldMatrix);
-		//shaderInformation.worldMatrix.row4 = view.row4;
-		p = glMapBuffer(GL_UNIFORM_BUFFER, GL_WRITE_ONLY);
-		memcpy(p, &shaderInformation, sizeof(shaderInformation));
-		glUnmapBuffer(GL_UNIFORM_BUFFER);
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (void*)0);
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * FSLogo_indexcount, FSLogo_indices, GL_STATIC_DRAW);
-		//glBindVertexArray(0);
+
+
+		
 		return true;
 	}
 	bool FreeResources(/*specific API device for unloading*/) {
@@ -395,6 +377,45 @@ class Level_Objects {
 	// TODO: This could be a good spot for any global data like cameras or lights
 
 public:
+	std::vector<std::string> faces
+	{
+			"../../Textures/right.jpg",
+			"../../Textures/left.jpg",
+			"../../Textures/top.jpg",
+			"../../Textures/bottom.jpg",
+			"../../Textures/front.jpg",
+			"../../Textures/back.jpg"
+	};
+	unsigned int loadCubemap(std::vector<std::string> faces)
+	{
+		glGenTextures(1, &textureID);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+		int width, height, nrChannels;
+		for (unsigned int i = 0; i < faces.size(); i++)
+		{
+			unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+			if (data)
+			{
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+					0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
+				);
+				stbi_image_free(data);
+			}
+			else
+			{
+				std::cout << "Cubemap tex failed to load at path: " << faces[i] << std::endl;
+				stbi_image_free(data);
+			}
+		}
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+		return textureID;
+	}
 	// Imports the default level txt format and creates a Model from each .h2b
 	bool LoadLevel(	const char* gameLevelPath,
 					const char* h2bFolderPath,
@@ -408,9 +429,10 @@ public:
 #ifndef NDEBUG
 		glDebugMessageCallback(MessageCallback, nullptr);
 #endif
-		view = GW::MATH::GIdentityMatrixF; perspective = GW::MATH::GIdentityMatrixF;
+		view[0] = GW::MATH::GIdentityMatrixF; view[1] = GW::MATH::GIdentityMatrixF; perspective = GW::MATH::GIdentityMatrixF;
 
-		mProxy.LookAtLHF(GW::MATH::GVECTORF({ -25.75f, 4.25f, 1.5f }), GW::MATH::GVECTORF({ 0.15f, 0.75f, 0 }), GW::MATH::GVECTORF({ 0.0f, 1.0f, 0.0f }), view);
+		mProxy.LookAtLHF(GW::MATH::GVECTORF({ -25.75f, 4.25f, 1.5f }), GW::MATH::GVECTORF({ 0.15f, 0.75f, 0 }), GW::MATH::GVECTORF({ 0.0f, 1.0f, 0.0f }), view[0]);
+		mProxy.LookAtLHF(GW::MATH::GVECTORF({ -25.75f, 4.25f, 1.5f }), GW::MATH::GVECTORF({ 0.15f, 0.75f, 0 }), GW::MATH::GVECTORF({ 0.0f, 1.0f, 0.0f }), view[1]);
 
 		unsigned int winHeight; unsigned int winWidth;
 		if (!win)
@@ -420,8 +442,14 @@ public:
 		aspectRatio = (float)winWidth / (float)winHeight;
 
 		mProxy.ProjectionOpenGLLHF(G_DEGREE_TO_RADIAN(65), aspectRatio, 0.1f, 100, perspective);
-		mProxy.MultiplyMatrixF(view, perspective, viewPerspective); 
-		
+		mProxy.MultiplyMatrixF(view[0], perspective, viewPerspective);
+		mProxy.MultiplyMatrixF(view[1], perspective, viewPerspective);
+
+		skybox = loadCubemap(faces);
+
+		//LoadTexture("../../Textures/right.jpg",0);
+		//LoadTexture("../../Textures/StoneTexture.jpg",1);
+
 
 		//SHADERS
 		vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -438,6 +466,8 @@ public:
 		fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 		glCompileShader(fragmentShader);
+
+
 		glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &result);
 		if (result == false)
 		{
@@ -467,9 +497,7 @@ public:
 		log.LogCategorized("EVENT", "LOADING GAME LEVEL [OBJECT ORIENTED]");
 		log.LogCategorized("MESSAGE", "Begin Reading Game Level Text File.");
 
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture_object);
-		LoadTexture("../../Textures/Skybox.jpg");
+
 
 		UnloadLevel();// clear previous level data if there is any
 		GW::SYSTEM::GFile file;
@@ -592,24 +620,27 @@ public:
 				log.LogCategorized("MESSAGE", "Importing of .H2B File Data Complete.");
 			}
 		}
-		if (cameraCount > 0)
-		{
-			mProxy.InverseF(cameras[0], view);
-			//view = cameras[0];
-		}
 		log.LogCategorized("MESSAGE", "Game Level File Reading Complete.");
 		// level loaded into CPU ram
 		log.LogCategorized("EVENT", "GAME LEVEL WAS LOADED TO CPU [OBJECT ORIENTED]");
 
+		mProxy.InverseF(cameras[1], cameras[1]);
 		return true;
 	}
 	// Draws all objects in the level
 	void RenderLevel() {
 		// iterate over each model and tell it to draw itself
+		glViewport(0, 0, 600, 600);
 		for (auto e : allObjectsInLevel) 
 		{
 			//e.UploadModelData2GPU();
-			e.DrawModel(/*pass any needed global info.(ex:camera)*/);
+			e.DrawModel(cameras[1], true/*pass any needed global info.(ex:camera)*/);
+		}
+		glViewport(600,0, 600, 600);
+		for (auto e : allObjectsInLevel)
+		{
+			//e.UploadModelData2GPU();
+			e.DrawModel(cameras[0], false/*pass any needed global info.(ex:camera)*/);
 		}
 		//renderer.Render();
 	}

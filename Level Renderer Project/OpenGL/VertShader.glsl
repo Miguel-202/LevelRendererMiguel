@@ -12,6 +12,8 @@ layout(location = 2) in vec3 local_nrm;
 out vec3 world_nrm;
 out vec3 worldPos;
 out vec3 world_uvw;
+out vec3 textCords;
+
 
 struct OBJ_ATTRIBUTES
 {
@@ -39,12 +41,12 @@ layout(row_major) uniform UBO_DATA
 void main()
 {
 	// Transform the vertex position from local space to world space
+	textCords = local_pos;
     vec4 world_pos = vec4(local_pos, 1.0) *  worldMatrix;
     worldPos = world_pos.xyz;
 
     // Transform the vertex normal from local space to world space
-    world_nrm = normalize((worldMatrix * vec4(local_nrm, 0.0)).xyz);
-
+    world_nrm = normalize((vec4(local_nrm, 0.0) * worldMatrix).xyz );
     // Calculate the final position in clip space
     gl_Position = world_pos * viewProjection;
 }

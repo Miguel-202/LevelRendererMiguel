@@ -26,7 +26,7 @@ int main()
 	GEventResponder msgs;
 	GOpenGLSurface ogl;
 	GlobalVar glb;
-	if (+win.Create(0, 0, 800, 600, GWindowStyle::WINDOWEDBORDERED))
+	if (+win.Create(0, 0, 1200, 600, GWindowStyle::WINDOWEDBORDERED))
 	{
 		win.SetWindowName("Miguel Martinez - Level Renderer - OpenGL");
 		float clr[] = { 200 / 255.0f,       90 / 255.0f,       150 / 255.0f, 1 };
@@ -58,7 +58,9 @@ int main()
 				if (GetAsyncKeyState(VK_F1) & 0x8000)
 					objectOrientedLoader.LoadLevel("../../CyberpunkGameLevel.txt", "../../Models", log, win);
 				else if (GetAsyncKeyState(VK_F2) & 0x8000)
-					objectOrientedLoader.LoadLevel("../../DungeonGameLevel.txt", "../../Models", log, win);
+					objectOrientedLoader.LoadLevel("../../GameLevel2.txt", "../../Models", log, win);
+				else if (GetAsyncKeyState(VK_F3) & 0x8000)
+					objectOrientedLoader.LoadLevel("../../GameLevel.txt", "../../Models", log, win);
 			}
 			objectOrientedLoader.UnloadLevel();
 		}
