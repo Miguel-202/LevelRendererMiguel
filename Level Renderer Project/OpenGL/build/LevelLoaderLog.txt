@@ -1,5 +1,0 @@
-[Thu Feb 23 16:04:17 2023] ThreadID[26148]	Start Program.
-[Thu Feb 23 16:04:17 2023] ThreadID[26148]	[EVENT]	LOADING GAME LEVEL [OBJECT ORIENTED]
-[Thu Feb 23 16:04:17 2023] ThreadID[26148]	[MESSAGE]	Begin Reading Game Level Text File.
-[Thu Feb 23 16:04:17 2023] ThreadID[26148]	[ERROR]	Game level not found: ../../CyberpunkGameLevel.txt
-[Thu Feb 23 16:04:17 2023] ThreadID[26148]	End Program.

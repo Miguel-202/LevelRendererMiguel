@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <CustomBuild Include="C:\Users\mikyt\Documents\FullSail\13.2. 3-DContentCreation\LevelRendererMiguel\Level Renderer Project\OpenGL\CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
-</Project>
