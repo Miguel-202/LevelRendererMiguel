@@ -1,8 +1,4 @@
 #version 330 // GLSL 3.30
-// an ultra simple glsl vertex shader
-
-//uniform mat4 worldMatrix;
-//uniform mat4 viewProjection;
 
 //in vec3 local_pos;
 layout(location = 0) in vec3 local_pos;

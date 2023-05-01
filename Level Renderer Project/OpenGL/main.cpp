@@ -60,7 +60,9 @@ int main()
 				else if (GetAsyncKeyState(VK_F2) & 0x8000)
 					objectOrientedLoader.LoadLevel("../../GameLevel2.txt", "../../Models", log, win);
 				else if (GetAsyncKeyState(VK_F3) & 0x8000)
-					objectOrientedLoader.LoadLevel("../../GameLevel.txt", "../../Models", log, win);
+					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				else if (GetAsyncKeyState(VK_F4) & 0x8000)
+					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 			objectOrientedLoader.UnloadLevel();
 		}

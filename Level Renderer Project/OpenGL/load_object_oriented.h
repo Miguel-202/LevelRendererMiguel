@@ -59,9 +59,9 @@ struct UBO_DATA
 
 GLuint uniformBlockIndex;
 
-GLuint vertexArray = 0;
-GLuint vertexBufferObject = 0;
-GLuint indexBufferObject = 0;
+GLuint vao = 0;
+GLuint vertexHandle = 0;
+GLuint ebo = 0;
 GLuint UBO = 0;
 //SHADERS
 GLuint vertexShader = 0;
@@ -288,6 +288,12 @@ public:
 		return cpuModel.Parse(h2bPath);
 	}
 	bool UploadModelData2GPU(/*specific API device for loading*/) {
+
+		//UBO Binding
+		glGenBuffers(1, &UBO);
+		glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+		glBufferData(GL_UNIFORM_BUFFER, sizeof(UBO_DATA), &shaderInformation, GL_DYNAMIC_DRAW);
+		glBindBuffer(GL_UNIFORM_BUFFER, 0);
 		//LIGHTS
 		for (size_t i = 0; i < lightCount; i++)
 		{
@@ -313,11 +319,13 @@ public:
 			collisions[i] = {minPoint, maxPoint};
 		}
 
+
 		shaderInformation.view_perspective = viewPerspective;
-		glGenVertexArrays(1, &vertexArray);
-		glBindVertexArray(vertexArray);
-		glGenBuffers(1, &vertexBufferObject);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);////////
+
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
+		glGenBuffers(1, &vertexHandle);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexHandle);////////
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(H2B::VERTEX), (void*)0);
 		glEnableVertexAttribArray(0);
@@ -328,11 +336,16 @@ public:
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(H2B::VERTEX), (void*)24);
 		glEnableVertexAttribArray(2);
 
-		glGenBuffers(1, &indexBufferObject);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
+		glGenBuffers(1, &ebo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+
+		// Enable the attribute
+		glEnableVertexAttribArray(0);
+		// Bind the VBO to the VAO
+		glBindBuffer(GL_ARRAY_BUFFER, vertexHandle);
+
 		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * cpuModel.indexCount, cpuModel.indices.data(), GL_STATIC_DRAW);//LINE
 		
-
 		// TODO: Use chosen API to upload this model's graphics data to GPU
 		return true;
 	}
@@ -351,11 +364,6 @@ public:
 		mProxy.InverseF(view, camPos);
 		shaderInformation.cameraPos = camPos.row4;
 
-		//UBO Binding
-		glGenBuffers(1, &UBO);
-		glBindBuffer(GL_UNIFORM_BUFFER, UBO);
-		glBufferData(GL_UNIFORM_BUFFER, sizeof(UBO_DATA), &shaderInformation, GL_DYNAMIC_DRAW);
-
 		uniformBlockIndex = glGetUniformBlockIndex(shaderExecutable, "UBO_DATA");
 		glBindBufferBase(GL_UNIFORM_BUFFER, uniformBlockIndex, UBO);
 
@@ -363,7 +371,7 @@ public:
 		shaderInformation.sunDirection = sunPositionG;
 
 		glUseProgram(shaderExecutable);
-		glBindVertexArray(vertexArray);
+		glBindVertexArray(vao);
 		glUniformBlockBinding(shaderExecutable, uniformBlockIndex, 0);
 
 		// TODO: Use chosen API to setup the pipeline for this model and draw it
@@ -388,6 +396,13 @@ public:
 			movement = { 0,0,0 }; movementSide = { 0,0,0 };
 			rotationXY[0] = 0; rotationXY[1] = 0;
 		}
+		else
+		{
+			mProxy.InverseF(view, view);
+			view.row4.z += 0.005f;
+			mProxy.InverseF(view, view);
+		}
+		
 
 
 		GLvoid* p;
@@ -396,11 +411,11 @@ public:
 		//SKYBOX
 
 		shaderInformation.material.illum = 1000;
-		glBufferData(GL_ARRAY_BUFFER, sizeof(H2B::VERTEX) * 8, cubeVerts, GL_STATIC_DRAW);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * 36, cubeIndexes, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVerts), cubeVerts, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cubeIndexes), cubeIndexes, GL_STATIC_DRAW);
 		mProxy.IdentityF(shaderInformation.worldMatrix);
 		shaderInformation.worldMatrix.row4 = camPos.row4;
-		glBindTexture(GL_TEXTURE_CUBE_MAP, skybox);
+		//glBindTexture(GL_TEXTURE_CUBE_MAP, skybox);
 		p = glMapBuffer(GL_UNIFORM_BUFFER, GL_WRITE_ONLY);
 		memcpy(p, &shaderInformation, sizeof(shaderInformation));
 		glUnmapBuffer(GL_UNIFORM_BUFFER);
@@ -460,8 +475,8 @@ public:
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		glBindTexture(GL_TEXTURE_2D, 0);
-		glDeleteBuffers(1, &vertexBufferObject);
-		glDeleteVertexArrays(1, &vertexArray);
+		glDeleteBuffers(1, &vertexHandle);
+		glDeleteVertexArrays(1, &vao);
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
 		glDeleteProgram(shaderExecutable);
@@ -526,13 +541,33 @@ public:
 		mProxy.Create();
 		mProxy.IdentityF(worldPositions[0]);
 		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_TEXTURE_2D);
 #ifndef NDEBUG
 		glDebugMessageCallback(MessageCallback, nullptr);
 #endif
 		view[0] = GW::MATH::GIdentityMatrixF; view[1] = GW::MATH::GIdentityMatrixF; perspective = GW::MATH::GIdentityMatrixF;
+		view[1].row4.z = -4;
 
-		mProxy.LookAtLHF(GW::MATH::GVECTORF({ -25.75f, 4.25f, 1.5f }), GW::MATH::GVECTORF({ 0.15f, 0.75f, 0 }), GW::MATH::GVECTORF({ 0.0f, 1.0f, 0.0f }), view[0]);
-		mProxy.LookAtLHF(GW::MATH::GVECTORF({ -25.75f, 4.25f, 1.5f }), GW::MATH::GVECTORF({ 0.15f, 0.75f, 0 }), GW::MATH::GVECTORF({ 0.0f, 1.0f, 0.0f }), view[1]);
+		//mProxy.LookAtLHF(GW::MATH::GVECTORF({ -25.75f, 4.25f, 1.5f }), GW::MATH::GVECTORF({ 0.15f, 0.75f, 0 }), GW::MATH::GVECTORF({ 0.0f, 1.0f, 0.0f }), view[0]);
+		//mProxy.LookAtLHF(GW::MATH::GVECTORF({ -25.75f, 4.25f, 1.5f }), GW::MATH::GVECTORF({ 0.15f, 0.75f, 0 }), GW::MATH::GVECTORF({ 0.0f, 1.0f, 0.0f }), view[1]);
+
+		//glMatrixMode(GL_PROJECTION);
+		//glLoadIdentity();
+		//glOrtho(-10.0, 10.0, -10.0, 10.0, -10.0, 10.0); // set up an orthographic projection matrix
+		//glMatrixMode(GL_MODELVIEW);
+		float left = -1.0f;
+		float right = 1.0f;
+		float bottom = -1.0f;
+		float top = 1.0f;
+		float znear = 0.1f;
+		float zfar = 100.0f;
+		GW::MATH::GMATRIXF orthographicProjection
+		({  2 / (right - left),		   		      0,				   0, 0 - (right + left) / (right - left),
+			0				  ,	 2 / (top - bottom),				   0, 0 - (top + bottom) / (top - bottom),
+			0				  ,					  0, -2 / (zfar - znear), 0 - (zfar + znear) / (zfar - znear),
+			0				  ,					  0,				   0,					1 });
+
+
 
 		unsigned int winHeight; unsigned int winWidth;
 		if (!win)
@@ -541,8 +576,9 @@ public:
 		float aspectRatio;
 		aspectRatio = ((float)winWidth/2) / (float)winHeight;
 
-		mProxy.ProjectionOpenGLLHF(G_DEGREE_TO_RADIAN(65), aspectRatio, 0.1f, 100, perspective);
-		mProxy.MultiplyMatrixF(view[0], perspective, viewPerspective);
+		//mProxy.ProjectionOpenGLLHF(G_DEGREE_TO_RADIAN(65), aspectRatio, 0.1f, 100, perspective);
+		perspective = orthographicProjection;
+		
 		mProxy.MultiplyMatrixF(view[1], perspective, viewPerspective);
 
 		skybox = loadCubemap(faces);
