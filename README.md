@@ -26,7 +26,7 @@ To use the Level Renderer, follow these steps:
 
 Note: Please ensure that you have the required versions of Blender, Python, and OpenGL libraries installed on your system before proceeding with the installation.
 
-If you encounter any issues during the installation process, please refer to the [troubleshooting guide](troubleshooting.md) or feel free to reach out for assistance.
+If you encounter any issues during the installation process, please feel free to reach out for assistance.
 
 Now you're ready to start using the Level Renderer!
 
@@ -38,7 +38,7 @@ Please note that the instructions assume familiarity with CMake and its usage. I
 
 ## Contact
 
-For any inquiries or suggestions regarding the Level Renderer, please reach out to Miguel Martinez at [miguel.martinez@example.com](mailto:miguel.mikytinez@hotmail.com) or visit my webpage: https://miguelmartinezolivares.com/.
+For any inquiries or suggestions regarding the Level Renderer, please reach out to Miguel Martinez at [miguelmartinezoliv@gmail.com](mailto:miguel.miguelmartinezoliv@gmail.com) or visit my webpage: https://miguelmartinezolivares.com/.
 
 ---
 
